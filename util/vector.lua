@@ -1,7 +1,7 @@
 --- Vector
 -- Minimal vector functions
 -- @module Vector
-Vector = {
+local vector = {
 
     --- Gets the length of a vector
     -- @param a
@@ -16,7 +16,7 @@ Vector = {
     -- @param b
     -- @return normalized a, b tuple
     normalize = function(a, b)
-        local len = Vector.len(a, b)
+        local len = math.sqrt(a * a + b * b)
         return a / len, b / len
     end,
 
@@ -41,4 +41,4 @@ Vector = {
     end,
 }
 
-return Vector
+return vector

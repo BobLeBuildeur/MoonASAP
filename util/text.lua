@@ -1,11 +1,11 @@
 
-Color = {
-    apply = function(text, color)
-        return string.format("\27[%sm%s\27[0m", color, text)
+local text = {
+    _apply = function(str, color)
+        return string.format("\27[%sm%s\27[0m", color, str)
     end,
-    green = function(text) return Color.apply(text, "32") end,
-    red = function(text) return Color.apply(text, "31") end,
-    yellow = function(text) return Color.apply(text, 33) end,
+    green = function(self, str) return self._apply(str, "32") end,
+    red = function(self, str) return self._apply(str, "31") end,
+    yellow = function(self, str) return self._apply(str, 33) end,
 }
 
-return Color
+return text

@@ -1,6 +1,6 @@
 ## Moon ASAP
 
-**Your game ASAP - as small as possible!**
+**Your lua game ASAP - as small as possible!**
 
 - Small footprint
 - Easily portable

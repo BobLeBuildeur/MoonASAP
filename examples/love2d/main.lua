@@ -1,5 +1,5 @@
-require("../util/class") -- require('util/class')
-require("../util/vector") -- require('util/vector')
+local vector = require("../util/vector") -- require('util/vector')
+require("../class") -- require('util/class')
 require("../entity") -- require('entity')
 local tree = require("../components/tree") -- require('components/tree')
 
@@ -58,7 +58,7 @@ Components = {
             -- which normalizes the input to make sure speed
             -- will always be consistent
             self.set_direction = function(self, dx, dy)
-                self._dx, self._dy = Vector.normalize(dx, dy)
+                self._dx, self._dy = vector.normalize(dx, dy)
             end
         end,
 
@@ -139,7 +139,7 @@ Components = {
         end,
 
         process = function(self, delta)
-            if Vector.len(self._parent._dx, self._parent._dy) > 0 then
+            if vector.len(self._parent._dx, self._parent._dy) > 0 then
                 self._time = self._time + delta * 3
 
                 self.y = self._original_y - math.cos(self._time * 6)

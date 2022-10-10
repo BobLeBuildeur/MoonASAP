@@ -1,7 +1,7 @@
-require("util/text")
-require("util/vector")
-require("util/class")
+require("class")
 require("entity")
+local text = require("util/text")
+local vector = require("util/vector")
 local tree = require("components/tree")
 
 Data = {
@@ -13,14 +13,14 @@ Data = {
 
 
 function Category(case)
-    print(Color.yellow(case))
+    print(text:yellow(case))
     Data.categories = Data.categories + 1
 end
 
 function Assert(value, eq, message)
     Data.assertions = Data.assertions + 1
     assert(value == eq,
-        Color.red(
+        text:red(
             (message or "") ..
             string.format(". [expected %s (%s) to be %s (%s)]", tostring(eq), type(eq), tostring(value), type(value)))
     )
@@ -30,7 +30,7 @@ end
 function AssertNot(value, neq, message)
     Data.assertions = Data.assertions + 1
     assert(value ~= neq,
-        Color.red(
+        text:red(
             (message or "") ..
             string.format(". [expected %s (%s) not to be %s (%s)]", tostring(eq), type(eq), tostring(value), type(value)))
     )
@@ -39,14 +39,14 @@ function AssertNot(value, neq, message)
 end
 
 function Test(case, fn)
-    print("  " .. Color.yellow(case))
+    print("  " .. text:yellow(case))
     Data.tests = Data.tests + 1
     local status, err = pcall(fn)
     if not status then
-        print("    [!] " .. Color.red(err))
+        print("    [!] " .. text:red(err))
         Data.errors = Data.errors + 1
     else
-        print("    " .. Color.green("All good!"))
+        print("    " .. text:green("All good!"))
     end
 end
 
@@ -59,29 +59,29 @@ Category("Vector")
 
 Test("Length", function()
     local value = math.sqrt(5)
-    Assert(Vector.len(1, 2), value)
-    Assert(Vector.len(-1, 2), value)
-    Assert(Vector.len(1, -2), value)
+    Assert(vector.len(1, 2), value)
+    Assert(vector.len(-1, 2), value)
+    Assert(vector.len(1, -2), value)
 end)
 
 Test("Normalization", function()
-    local x, y = Vector.normalize(3, 3)
+    local x, y = vector.normalize(3, 3)
     local l = tostring(1 / math.sqrt(2))
     Assert(tostring(x), l, "same length")
     Assert(tostring(y), l, "same length")
 
-    local x, y = Vector.normalize(3, 2)
+    local x, y = vector.normalize(3, 2)
     Assert(tostring(x), tostring(0.83205029433784), "different lengths")
     Assert(tostring(y), tostring(0.55470019622523), "different lengths")
 end)
 
 Test("Dot product", function()
-    Assert(Vector.dot(2, 3, 2, 0), 4)
-    Assert(Vector.dot(-1, 2, 0, -3), -6)
+    Assert(vector.dot(2, 3, 2, 0), 4)
+    Assert(vector.dot(-1, 2, 0, -3), -6)
 end)
 
 Test("Rotate", function()
-    local x, y = Vector.rotate(1, 0, math.pi)
+    local x, y = vector.rotate(1, 0, math.pi)
 
     -- fix floating point  error
     y = math.floor(y * 10000) / 10000
@@ -339,7 +339,7 @@ print(Data.tests, "tests")
 print(Data.assertions, "assertions")
 print(Data.errors, "errors")
 print()
-print(Data.errors > 0 and Color.red("Fail!") or Color.green("Pass!"))
+print(Data.errors > 0 and text:red("Fail!") or text:green("Pass!"))
 print()
 
 if Data.errors > 0 then
