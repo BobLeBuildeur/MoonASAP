@@ -94,6 +94,8 @@ Components = {
                 -- of the entities. This allows us to place children
                 -- in relative position to their parents
                 -- NOTE: this is an example, and very much not optimized!
+                -- Instead of looking up to the parent, a better solution
+                -- would using translation matrices
                 self.get_global_position = function(self)
                     local x, y = self.x, self.y
                     if self._parent and self._parent.get_global_position then

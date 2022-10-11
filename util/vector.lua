@@ -30,7 +30,7 @@ local vector = {
         return a1 * a2 + b1 * b2
     end,
 
-    --- Rotates a vector by a given angle (deg)
+    --- Rotates a vector by a given angle (radians)
     -- @param a
     -- @param b
     -- @param angle
