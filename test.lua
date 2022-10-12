@@ -17,7 +17,7 @@ function Assert(value, eq, message)
     assert(value == eq,
         text:red(
             (message or "") ..
-            string.format(". [expected %s (%s) to be %s (%s)]", tostring(eq), type(eq), tostring(value), type(value)))
+            string.format(". [expected %s (%s) to be (%s)]", tostring(value), type(value), tostring(eq), type(eq)))
     )
     print("    " .. (message and message .. " " or "") .. "asserted " .. tostring(eq))
 end
@@ -27,10 +27,16 @@ function AssertNot(value, neq, message)
     assert(value ~= neq,
         text:red(
             (message or "") ..
-            string.format(". [expected %s (%s) not to be %s (%s)]", tostring(eq), type(eq), tostring(value), type(value)))
+            string.format(". [expected %s (%s) not to be %s (%s)]", tostring(value), type(value), tostring(eq), type(eq)))
     )
     print("    " .. (message and message .. " " or "") .. "asserted different value to " .. tostring(eq))
+end
 
+function AssertError(fn, message)
+    Data.assertions = Data.assertions + 1
+    local status, err = pcall(fn)
+    assert(not status, text:red(err))
+    print("    " .. (message and message .. " " or "") .. "asserted error " .. err)
 end
 
 function Test(case, fn)
@@ -62,9 +68,17 @@ Category("Util/Vector")
 
 require("test/util/vector")
 
+Category("Util/Array")
+
+require("test/util/array")
+
 Category("Component/Scene Tree")
 
 require("test/components/tree")
+
+Category("Component/Event")
+
+require("test/components/event")
 
 
 -----------------------------------------------------
