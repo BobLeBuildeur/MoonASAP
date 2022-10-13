@@ -1,4 +1,35 @@
+
 local tree = require("../components/tree")
+
+Test("Adds child", function()
+    local trunk = Entity()
+    trunk:add_component(tree)
+
+    local leaf = Entity()
+    leaf:add_component(tree)
+
+    trunk:add_child(leaf)
+
+    Assert(#trunk._children, 1, "child added")
+    Assert(trunk._children[1], leaf, "correct child")
+end)
+
+Test("Removes child", function()
+    local trunk = Entity()
+    trunk:add_component(tree)
+
+    local leaf = Entity()
+    leaf:add_component(tree)
+
+    trunk:add_child(leaf)
+
+    Assert(#trunk._children, 1, "child_added")
+
+    local removed = trunk:remove_child(leaf)
+
+    Assert(#trunk._children, 0, "child removed")
+    Assert(removed, leaf, "removed correct child")
+end)
 
 Test("Walk with function", function()
     local named = Class(Entity)
@@ -71,7 +102,6 @@ Test("Does not fail when walking with a non-existent reference", function()
         Entity._init(self)
         self:add_component(tree)
     end
-
 
     local entity = Node()
 
