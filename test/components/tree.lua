@@ -31,6 +31,16 @@ Test("Removes child", function()
     Assert(removed, leaf, "removed correct child")
 end)
 
+Test("Returns nil if no child to be removed", function ()
+    local trunk = Entity()
+    trunk:add_component(tree)
+    local leaf = Entity()
+
+    local removed = trunk:remove_child(leaf)
+
+    Assert(removed, nil, "nil, nothing to remove")
+end)
+
 Test("Walk with function", function()
     local named = Class(Entity)
     named._init = function(self, name)
